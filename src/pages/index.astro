@@ -1,0 +1,586 @@
+---
+// No server imports needed - pure client-side fetch
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    
+    <!-- SEO Meta Tags -->
+    <title>🎸 Concerts in Rochester NY | Live Music Events & Tickets | CMAC, Darien Lake</title>
+    <meta name="description" content="Find upcoming concerts and live music events in Rochester NY, CMAC, and Darien Lake. Get tickets to the hottest shows and discover new artists performing near you.">
+    <meta name="keywords" content="Rochester concerts, live music Rochester NY, CMAC events, Darien Lake concerts, concert tickets Rochester, music venues Rochester, upcoming shows">
+    <meta name="author" content="Rochester Concerts">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://concertsinrochester.com">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://concertsinrochester.com">
+    <meta property="og:title" content="🎸 Concerts in Rochester NY | Live Music Events & Tickets">
+    <meta property="og:description" content="Find upcoming concerts and live music events in Rochester NY, CMAC, and Darien Lake. Get tickets to the hottest shows and discover new artists.">
+    <meta property="og:image" content="https://concertsinrochester.com/assets/concert-hero.jpg">
+    <meta property="og:site_name" content="Rochester Concerts">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://concertsinrochester.com">
+    <meta property="twitter:title" content="🎸 Concerts in Rochester NY | Live Music Events & Tickets">
+    <meta property="twitter:description" content="Find upcoming concerts and live music events in Rochester NY, CMAC, and Darien Lake. Get tickets to the hottest shows.">
+    <meta property="twitter:image" content="https://concertsinrochester.com/assets/concert-hero.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="apple-touch-icon" href="/assets/favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Rochester Concerts",
+      "description": "Find upcoming concerts and live music events in Rochester NY, CMAC, and Darien Lake",
+      "url": "https://concertsinrochester.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://concertsinrochester.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Rochester Concerts",
+        "url": "https://concertsinrochester.com"
+      },
+      "mainEntity": {
+        "@type": "EventSeries",
+        "name": "Rochester Area Concerts",
+        "description": "Live music events and concerts in Rochester NY and surrounding venues",
+        "location": {
+          "@type": "Place",
+          "name": "Rochester, NY",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Rochester",
+            "addressRegion": "NY",
+            "addressCountry": "US"
+          }
+        }
+      }
+    }
+    </script>
+    <style>
+      /* Custom styles for the hero section */
+      .hero {
+        position: relative;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        background: #1a1a1a;
+        overflow: hidden;
+      }
+      
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.3;
+        z-index: 0;
+      }
+      
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        padding: 2rem;
+        border-radius: 12px;
+        max-width: 800px;
+        width: 90%;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: white;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        color: white;
+      }
+      
+      /* Filter buttons */
+      .filter-container {
+        text-align: center;
+        margin: 2rem 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+        flex-wrap: wrap;
+      }
+      
+      .filter-btn {
+        margin: 0.25rem !important;
+        padding: 0.2rem 0.3rem !important;
+        border: 1px solid var(--pico-primary) !important;
+        background: white !important;
+        color: var(--pico-primary) !important;
+        border-radius: 50px !important;
+        cursor: pointer !important;
+        transition: all 0.3s !important;
+        font-weight: 400 !important;
+        font-size: 0.75rem !important;
+        display: inline-block !important;
+        text-decoration: none !important;
+        min-height: auto !important;
+        height: auto !important;
+        line-height: 1.2 !important;
+        width: auto !important;
+        min-width: auto !important;
+        max-width: 120px !important;
+        box-sizing: border-box !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      
+      .filter-btn:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      
+      .filter-btn:focus-visible {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      
+      .filter-btn:active {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+      
+      /* Dark mode filter button styles */
+      [data-theme="dark"] .filter-btn {
+        background: var(--pico-card-background-color) !important;
+        color: white !important;
+        border-color: var(--pico-muted-border-color) !important;
+      }
+      
+      .filter-btn:hover {
+        background: var(--pico-primary) !important;
+        color: white !important;
+        transform: translateY(-1px) !important;
+      }
+      
+      [data-theme="dark"] .filter-btn:hover {
+        background: #374151 !important;
+        border-color: #6b7280 !important;
+      }
+      
+      .filter-btn.active {
+        background: var(--pico-primary) !important;
+        color: white !important;
+        border-color: var(--pico-primary) !important;
+        box-shadow: none !important;
+        font-weight: bold !important;
+        transform: scale(1.05) !important;
+      }
+      
+      [data-theme="dark"] .filter-btn.active {
+        background: #1f2937 !important;
+        color: #60a5fa !important;
+        border-color: #374151 !important;
+        box-shadow: 0 4px 12px rgba(31, 41, 55, 0.6) !important;
+      }
+      
+      /* Event cards */
+      .event-card {
+        border: 1px solid var(--pico-border-color);
+        padding: 1.5rem;
+        margin: 1rem auto;
+        border-radius: 8px;
+        background: var(--pico-card-background-color);
+        max-width: 600px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .event-card h3 {
+        margin-bottom: 0.5rem;
+        color: var(--pico-primary);
+      }
+      
+      .event-venue {
+        color: var(--pico-muted-color);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .event-date {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      
+      .event-link {
+        display: inline-block;
+        margin-top: 0.5rem;
+      }
+      
+      /* Back to top button */
+      .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        padding: 1rem;
+        border-radius: 50%;
+        background: var(--pico-primary);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+      }
+      
+      [data-theme="dark"] .back-to-top {
+        background: #1f2937;
+        color: #60a5fa;
+      }
+      
+      .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .back-to-top:hover {
+        background: var(--pico-primary-hover);
+      }
+      
+      [data-theme="dark"] .back-to-top:hover {
+        background: #374151;
+      }
+      
+      /* Loading state */
+      .loading {
+        text-align: center;
+        padding: 2rem;
+        color: var(--pico-muted-color);
+      }
+      
+      /* Share buttons */
+      .share-container {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        z-index: 10;
+      }
+      
+      .share-btn {
+        padding: 0;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        flex-shrink: 0;
+      }
+      
+      .share-btn:hover {
+        transform: translateY(-2px) scale(1.1);
+        background: rgba(255, 255, 255, 0.3);
+      }
+      
+      .share-btn.facebook:hover { background: rgba(24, 119, 242, 0.9); }
+      .share-btn.twitter:hover { background: rgba(29, 161, 242, 0.9); }
+      .share-btn.copy:hover { background: rgba(34, 197, 94, 0.9); }
+      .theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: var(--pico-primary);
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: all 0.3s;
+        z-index: 1000;
+      }
+      
+      [data-theme="dark"] .theme-toggle {
+        background: #1f2937;
+        color: #60a5fa;
+      }
+      
+      .theme-toggle:hover {
+        background: var(--pico-primary-hover);
+        transform: scale(1.1);
+      }
+      
+      [data-theme="dark"] .theme-toggle:hover {
+        background: #374151;
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle between light and dark theme">🌙</button>
+    
+    <!-- Hero Section -->
+    <section class="hero" role="banner">
+      <img src="/assets/concert-hero.jpg" alt="Concert crowd with stage lights and performers" class="hero-bg">
+      <div class="hero-content">
+        <h1>🎸 Concerts in Rochester</h1>
+        <p>Your source for upcoming live music in Rochester, NY and nearby venues like CMAC & Darien Lake.</p>
+      </div>
+      
+      <!-- Share Buttons -->
+      <div class="share-container" role="group" aria-label="Share this page">
+        <a href="#" class="share-btn facebook" id="shareFacebook" title="Share on Facebook" aria-label="Share on Facebook">
+          👍
+        </a>
+        <a href="#" class="share-btn twitter" id="shareTwitter" title="Share on Twitter" aria-label="Share on Twitter">
+          🐦
+        </a>
+        <button class="share-btn copy" id="copyLink" title="Copy link" aria-label="Copy page link to clipboard">
+          🔗
+        </button>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- Filter Buttons -->
+      <div class="filter-container" role="group" aria-label="Filter concerts by venue">
+        <button class="filter-btn active" data-filter="All" aria-pressed="true">All</button>
+        <button class="filter-btn" data-filter="Rochester" aria-pressed="false">Rochester</button>
+        <button class="filter-btn" data-filter="Constellation Brands-Marvin Sands Performing Arts Center: CMAC" aria-pressed="false">CMAC</button>
+        <button class="filter-btn" data-filter="Darien Lake" aria-pressed="false">Darien Lake</button>
+      </div>
+
+      <h2 style="text-align: center; margin-bottom: 2rem;">Upcoming Events</h2>
+      
+      <!-- Loading State -->
+      <div id="loading" class="loading" role="status" aria-live="polite">
+        <p>🎵 Loading concerts...</p>
+      </div>
+      
+      <!-- Events Container -->
+      <div id="events-container" role="region" aria-label="Concert listings" aria-live="polite">
+        <!-- Events will be populated here -->
+      </div>
+      
+      <!-- Back to Top Button -->
+      <button class="back-to-top" id="backToTop" aria-label="Scroll back to top of page">⬆️</button>
+    </main>
+
+    <script type="module">
+      let allEvents = [];
+      let filteredEvents = [];
+      let selectedFilter = 'All';
+      let visibleCount = 10;
+      const loadMoreCount = 10;
+      
+      const eventsContainer = document.getElementById('events-container');
+      const loadingEl = document.getElementById('loading');
+      const backToTopBtn = document.getElementById('backToTop');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const themeToggle = document.getElementById('themeToggle');
+      const shareFacebook = document.getElementById('shareFacebook');
+      const shareTwitter = document.getElementById('shareTwitter');
+      const copyLink = document.getElementById('copyLink');
+      
+      // Share functionality
+      function initializeSharing() {
+        const url = encodeURIComponent(window.location.href);
+        const title = encodeURIComponent('🎸 Concerts in Rochester NY | Live Music Events & Tickets');
+        const description = encodeURIComponent('Find upcoming concerts and live music events in Rochester NY, CMAC, and Darien Lake');
+        
+        shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+        shareTwitter.href = `https://twitter.com/intent/tweet?url=${url}&text=${title}&hashtags=RochesterConcerts,LiveMusic,CMAC,DarienLake`;
+        
+        copyLink.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            copyLink.innerHTML = '✅';
+            copyLink.setAttribute('aria-label', 'Link copied to clipboard');
+            setTimeout(() => {
+              copyLink.innerHTML = '🔗';
+              copyLink.setAttribute('aria-label', 'Copy page link to clipboard');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy link:', err);
+          }
+        });
+      }
+      
+      // Theme management
+      function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        
+        document.documentElement.setAttribute('data-theme', theme);
+        updateThemeIcon(theme);
+      }
+      
+      function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+      }
+      
+      function updateThemeIcon(theme) {
+        themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+        themeToggle.title = `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`;
+      }
+
+      // Fetch events from API
+      async function fetchEvents() {
+        try {
+          const response = await fetch('http://localhost:4000/events');
+          if (!response.ok) throw new Error('Failed to fetch');
+          
+          allEvents = await response.json();
+          
+          // Sort by date (soonest first)
+          allEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+          
+          loadingEl.style.display = 'none';
+          filterEvents();
+          renderEvents();
+        } catch (error) {
+          console.error('Error fetching events:', error);
+          loadingEl.innerHTML = '<p>❌ Failed to load concerts. Make sure the API server is running!</p>';
+        }
+      }
+
+      // Filter events based on selected filter
+      function filterEvents() {
+        if (selectedFilter === 'All') {
+          filteredEvents = [...allEvents];
+        } else if (selectedFilter === 'Rochester') {
+          // Rochester = everything that's NOT CMAC and NOT Darien Lake
+          filteredEvents = allEvents.filter(event => 
+            event.venue && 
+            !event.venue.includes('Constellation Brands-Marvin Sands Performing Arts Center: CMAC') &&
+            !event.venue.includes('Darien Lake')
+          );
+        } else {
+          filteredEvents = allEvents.filter(event => 
+            event.venue && event.venue.includes(selectedFilter)
+          );
+        }
+        visibleCount = loadMoreCount; // Reset visible count
+      }
+
+      // Render events to DOM
+      function renderEvents() {
+        const eventsToShow = filteredEvents.slice(0, visibleCount);
+        
+        eventsContainer.innerHTML = eventsToShow.map(event => `
+          <article class="event-card">
+            <h3>${event.name || 'Unknown Event'}</h3>
+            <div class="event-venue">${event.venue || 'Unknown Venue'}</div>
+            <div class="event-date">${event.date ? new Date(event.date).toLocaleString() : 'Date TBA'}</div>
+            <a href="${event.url || '#'}" class="event-link" target="_blank" rel="noopener">View Tickets</a>
+          </article>
+        `).join('');
+
+        // Show load more message if there are more events
+        if (visibleCount < filteredEvents.length) {
+          eventsContainer.innerHTML += `
+            <div style="text-align: center; margin: 2rem 0;">
+              <p>Scroll down to see more concerts...</p>
+            </div>
+          `;
+        }
+      }
+
+      // Update filter button states
+      function updateFilterButtons() {
+        filterBtns.forEach(btn => {
+          const isActive = btn.dataset.filter === selectedFilter;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive.toString());
+        });
+      }
+
+      // Load more events on scroll
+      function handleScroll() {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+          if (visibleCount < filteredEvents.length) {
+            visibleCount += loadMoreCount;
+            renderEvents();
+          }
+        }
+        
+        // Show/hide back to top button
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      }
+
+      // Event listeners
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          selectedFilter = btn.dataset.filter;
+          updateFilterButtons();
+          filterEvents();
+          renderEvents();
+          window.scrollTo({ top: document.querySelector('main').offsetTop, behavior: 'smooth' });
+          
+          // Remove focus to prevent blue outline
+          btn.blur();
+        });
+      });
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      themeToggle.addEventListener('click', toggleTheme);
+
+      window.addEventListener('scroll', handleScroll);
+
+      // Initialize
+      initTheme();
+      initializeSharing();
+      fetchEvents();
+    </script>
+  </body>
+</html>
