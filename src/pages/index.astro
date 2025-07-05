@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     
+    <!-- Critical Performance Optimizations -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="//localhost:4000">
+    
     <!-- SEO Meta Tags -->
     <title>🎸 Concerts in Rochester NY | Live Music Events & Tickets | CMAC, Darien Lake</title>
     <meta name="description" content="Find upcoming concerts and live music events in Rochester NY, CMAC, and Darien Lake. Get tickets to the hottest shows and discover new artists performing near you.">
@@ -37,10 +41,230 @@
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="apple-touch-icon" href="/assets/favicon.svg">
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5R0R6NDX72"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5R0R6NDX72');
+    </script>
     
-    <!-- JSON-LD Structured Data -->
+    <!-- Critical CSS inlined -->
+    <style>
+      /* CSS Reset & Base Styles - Minimal Critical CSS */
+      *,*::before,*::after{box-sizing:border-box}
+      html{line-height:1.15;-webkit-text-size-adjust:100%}
+      body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.6;color:#333}
+      h1,h2,h3{margin:0 0 1rem;font-weight:600;line-height:1.3}
+      h1{font-size:clamp(1.75rem,4vw,2.5rem)}
+      h2{font-size:clamp(1.5rem,3vw,2rem)}
+      h3{font-size:clamp(1.25rem,2.5vw,1.5rem)}
+      p{margin:0 0 1rem}
+      button{border:0;background:none;cursor:pointer;font:inherit}
+      a{color:#007acc;text-decoration:none}
+      a:hover{text-decoration:underline}
+      img{max-width:100%;height:auto;display:block}
+      
+      /* Dark mode variables */
+      :root{
+        --bg-primary:#fff;--bg-secondary:#f8f9fa;--bg-card:#fff;
+        --text-primary:#333;--text-secondary:#666;--text-muted:#999;
+        --border:#e1e5e9;--accent:#007acc;--accent-hover:#005fa3;
+        --shadow:0 2px 8px rgba(0,0,0,0.1);--shadow-hover:0 4px 16px rgba(0,0,0,0.15);
+      }
+      [data-theme="dark"]{
+        --bg-primary:#0f1419;--bg-secondary:#1a1f24;--bg-card:#1f2937;
+        --text-primary:#f3f4f6;--text-secondary:#d1d5db;--text-muted:#9ca3af;
+        --border:#374151;--accent:#60a5fa;--accent-hover:#3b82f6;
+        --shadow:0 2px 8px rgba(0,0,0,0.3);--shadow-hover:0 4px 16px rgba(0,0,0,0.4);
+      }
+      body{background:var(--bg-primary);color:var(--text-primary);transition:background-color 0.3s,color 0.3s}
+      
+      /* Hero Section - Mobile First - Pure CSS Background */
+      .hero{
+        position:relative;min-height:60vh;display:flex;align-items:center;
+        justify-content:center;text-align:center;color:#fff;
+        background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+        overflow:hidden;isolation:isolate;
+      }
+      .hero::before{
+        content:'';position:absolute;inset:0;
+        background:radial-gradient(circle at 30% 70%,rgba(255,255,255,0.1) 0%,transparent 50%),
+                   radial-gradient(circle at 70% 30%,rgba(255,255,255,0.05) 0%,transparent 50%);
+        z-index:0;
+      }
+      .hero-content{
+        position:relative;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);
+        padding:clamp(1rem,4vw,2rem);border-radius:12px;
+        max-width:min(90vw,800px);width:100%;margin:0 1rem;
+      }
+      .hero h1{color:#fff;margin-bottom:0.5rem}
+      .hero p{color:#fff;opacity:0.9;margin:0;font-size:clamp(0.9rem,2.5vw,1.1rem)}
+      
+      /* Container - Responsive */
+      .container{max-width:1200px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+      
+      /* Filter Buttons - Mobile Optimized */
+      .filter-container{
+        display:flex;justify-content:center;align-items:center;
+        gap:0.5rem;margin:2rem 0;flex-wrap:wrap;
+      }
+      .filter-btn{
+        margin:0!important;padding:0.4rem 0.8rem!important;
+        border:1px solid var(--accent)!important;
+        background:var(--bg-primary)!important;color:var(--accent)!important;
+        border-radius:50px!important;cursor:pointer!important;
+        transition:all 0.3s!important;font-weight:400!important;
+        font-size:0.85rem!important;display:inline-block!important;
+        text-decoration:none!important;min-height:auto!important;
+        height:auto!important;line-height:1.2!important;
+        width:auto!important;min-width:auto!important;
+        max-width:none!important;box-sizing:border-box!important;
+        outline:none!important;box-shadow:none!important;
+      }
+      .filter-btn:focus,.filter-btn:focus-visible,.filter-btn:active{
+        outline:none!important;box-shadow:none!important;
+      }
+      .filter-btn:hover{
+        background:var(--accent)!important;color:#fff!important;
+        transform:translateY(-1px)!important;
+      }
+      .filter-btn.active{
+        background:var(--accent)!important;color:#fff!important;
+        border-color:var(--accent)!important;font-weight:bold!important;
+        transform:scale(1.05)!important;
+      }
+      
+      /* Mobile Responsive Adjustments */
+      @media (max-width:640px){
+        .filter-container{gap:0.25rem;margin:1.5rem 0}
+        .filter-btn{padding:0.3rem 0.6rem!important;font-size:0.8rem!important}
+        .hero{min-height:50vh}
+        .hero-content{padding:1.5rem;margin:0 0.5rem}
+        .hero h1{font-size:1.75rem}
+        .hero p{font-size:0.9rem}
+      }
+      
+      /* Share Buttons - Mobile Optimized */
+      .share-container{
+        position:absolute;bottom:1rem;left:1rem;display:flex;
+        flex-direction:column;gap:0.5rem;z-index:10;
+      }
+      .share-btn{
+        padding:0;border-radius:50%;border:none;cursor:pointer;
+        font-size:1rem;transition:all 0.3s;backdrop-filter:blur(8px);
+        background:rgba(255,255,255,0.2);color:#fff;text-decoration:none;
+        display:flex;align-items:center;justify-content:center;
+        width:40px;height:40px;min-width:40px;flex-shrink:0;
+      }
+      .share-btn:hover{
+        transform:translateY(-2px) scale(1.1);background:rgba(255,255,255,0.3);
+      }
+      .share-btn.facebook:hover{background:rgba(24,119,242,0.9)}
+      .share-btn.twitter:hover{background:rgba(29,161,242,0.9)}
+      .share-btn.copy:hover{background:rgba(34,197,94,0.9)}
+      
+      /* Mobile share buttons */
+      @media (max-width:640px){
+        .share-container{bottom:0.5rem;left:0.5rem}
+        .share-btn{width:36px;height:36px;font-size:0.9rem}
+      }
+      
+      /* Theme Toggle - Mobile Optimized */
+      .theme-toggle{
+        position:fixed;top:1rem;right:1rem;background:var(--accent);
+        color:#fff;border:none;padding:0.75rem;border-radius:50%;
+        cursor:pointer;font-size:1.2rem;transition:all 0.3s;z-index:1000;
+        width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+      }
+      .theme-toggle:hover{
+        background:var(--accent-hover);transform:scale(1.1);
+      }
+      @media (max-width:640px){
+        .theme-toggle{top:0.5rem;right:0.5rem;padding:0.5rem;font-size:1rem;width:40px;height:40px}
+      }
+      
+      /* Events Section */
+      .events-section{background:var(--bg-primary);padding:2rem 0;min-height:50vh}
+      .events-title{text-align:center;margin-bottom:2rem;color:var(--text-primary)}
+      
+      /* Loading State */
+      .loading{
+        text-align:center;padding:2rem;color:var(--text-muted);
+        background:var(--bg-card);border-radius:8px;margin:1rem 0;
+      }
+      
+      /* Event Cards - Mobile First Grid */
+      .events-grid{
+        display:grid;grid-template-columns:1fr;gap:1rem;
+        margin:2rem 0;
+      }
+      @media (min-width:640px){
+        .events-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+      }
+      @media (min-width:1024px){
+        .events-grid{grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:2rem}
+      }
+      
+      .event-card{
+        border:1px solid var(--border);padding:1.5rem;border-radius:12px;
+        background:var(--bg-card);box-shadow:var(--shadow);
+        transition:transform 0.2s,box-shadow 0.2s;
+      }
+      .event-card:hover{
+        transform:translateY(-2px);box-shadow:var(--shadow-hover);
+      }
+      .event-card h3{
+        margin-bottom:0.5rem;color:var(--accent);font-size:1.1rem;
+        line-height:1.3;
+      }
+      .event-venue{
+        color:var(--text-muted);font-size:0.85rem;margin-bottom:0.5rem;
+        font-weight:500;
+      }
+      .event-date{
+        font-size:0.85rem;margin-bottom:1rem;color:var(--text-secondary);
+      }
+      .event-link{
+        display:inline-block;margin-top:0.5rem;color:var(--accent);
+        font-weight:500;font-size:0.9rem;
+      }
+      .event-link:hover{color:var(--accent-hover)}
+      
+      /* Back to Top - Mobile Optimized */
+      .back-to-top{
+        position:fixed;bottom:2rem;right:2rem;padding:1rem;
+        border-radius:50%;background:var(--accent);color:#fff;
+        border:none;cursor:pointer;font-size:1.2rem;opacity:0;
+        visibility:hidden;transition:all 0.3s;
+        width:50px;height:50px;display:flex;align-items:center;justify-content:center;
+      }
+      .back-to-top.visible{opacity:1;visibility:visible}
+      .back-to-top:hover{background:var(--accent-hover);transform:scale(1.1)}
+      @media (max-width:640px){
+        .back-to-top{bottom:1rem;right:1rem;padding:0.75rem;width:44px;height:44px;font-size:1rem}
+      }
+      
+      /* More concerts loading indicator */
+      .load-more{
+        text-align:center;margin:2rem 0;padding:1rem;
+        color:var(--text-muted);font-size:0.9rem;
+      }
+      
+      /* Optimize for reduced motion */
+      @media (prefers-reduced-motion:reduce){
+        *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+      }
+      
+      /* High contrast mode support */
+      @media (prefers-contrast:high){
+        .filter-btn{border-width:2px!important}
+        .event-card{border-width:2px}
+      }
+    </style>
+    
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -75,289 +299,15 @@
       }
     }
     </script>
-    <style>
-      /* Custom styles for the hero section */
-      .hero {
-        position: relative;
-        min-height: 60vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: white;
-        background: #1a1a1a;
-        overflow: hidden;
-      }
-      
-      .hero-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0.3;
-        z-index: 0;
-      }
-      
-      .hero-content {
-        position: relative;
-        z-index: 1;
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(8px);
-        padding: 2rem;
-        border-radius: 12px;
-        max-width: 800px;
-        width: 90%;
-      }
-      
-      .hero h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: white;
-      }
-      
-      .hero p {
-        font-size: 1.1rem;
-        opacity: 0.9;
-        color: white;
-      }
-      
-      /* Filter buttons */
-      .filter-container {
-        text-align: center;
-        margin: 2rem 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.25rem;
-        flex-wrap: wrap;
-      }
-      
-      .filter-btn {
-        margin: 0.25rem !important;
-        padding: 0.2rem 0.3rem !important;
-        border: 1px solid var(--pico-primary) !important;
-        background: white !important;
-        color: var(--pico-primary) !important;
-        border-radius: 50px !important;
-        cursor: pointer !important;
-        transition: all 0.3s !important;
-        font-weight: 400 !important;
-        font-size: 0.75rem !important;
-        display: inline-block !important;
-        text-decoration: none !important;
-        min-height: auto !important;
-        height: auto !important;
-        line-height: 1.2 !important;
-        width: auto !important;
-        min-width: auto !important;
-        max-width: 120px !important;
-        box-sizing: border-box !important;
-        outline: none !important;
-        box-shadow: none !important;
-      }
-      
-      .filter-btn:focus {
-        outline: none !important;
-        box-shadow: none !important;
-      }
-      
-      .filter-btn:focus-visible {
-        outline: none !important;
-        box-shadow: none !important;
-      }
-      
-      .filter-btn:active {
-        outline: none !important;
-        box-shadow: none !important;
-      }
-      
-      /* Dark mode filter button styles */
-      [data-theme="dark"] .filter-btn {
-        background: var(--pico-card-background-color) !important;
-        color: white !important;
-        border-color: var(--pico-muted-border-color) !important;
-      }
-      
-      .filter-btn:hover {
-        background: var(--pico-primary) !important;
-        color: white !important;
-        transform: translateY(-1px) !important;
-      }
-      
-      [data-theme="dark"] .filter-btn:hover {
-        background: #374151 !important;
-        border-color: #6b7280 !important;
-      }
-      
-      .filter-btn.active {
-        background: var(--pico-primary) !important;
-        color: white !important;
-        border-color: var(--pico-primary) !important;
-        box-shadow: none !important;
-        font-weight: bold !important;
-        transform: scale(1.05) !important;
-      }
-      
-      [data-theme="dark"] .filter-btn.active {
-        background: #1f2937 !important;
-        color: #60a5fa !important;
-        border-color: #374151 !important;
-        box-shadow: 0 4px 12px rgba(31, 41, 55, 0.6) !important;
-      }
-      
-      /* Event cards */
-      .event-card {
-        border: 1px solid var(--pico-border-color);
-        padding: 1.5rem;
-        margin: 1rem auto;
-        border-radius: 8px;
-        background: var(--pico-card-background-color);
-        max-width: 600px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-      
-      .event-card h3 {
-        margin-bottom: 0.5rem;
-        color: var(--pico-primary);
-      }
-      
-      .event-venue {
-        color: var(--pico-muted-color);
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
-      }
-      
-      .event-date {
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-      }
-      
-      .event-link {
-        display: inline-block;
-        margin-top: 0.5rem;
-      }
-      
-      /* Back to top button */
-      .back-to-top {
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        padding: 1rem;
-        border-radius: 50%;
-        background: var(--pico-primary);
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-size: 1.2rem;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s;
-      }
-      
-      [data-theme="dark"] .back-to-top {
-        background: #1f2937;
-        color: #60a5fa;
-      }
-      
-      .back-to-top.visible {
-        opacity: 1;
-        visibility: visible;
-      }
-      
-      .back-to-top:hover {
-        background: var(--pico-primary-hover);
-      }
-      
-      [data-theme="dark"] .back-to-top:hover {
-        background: #374151;
-      }
-      
-      /* Loading state */
-      .loading {
-        text-align: center;
-        padding: 2rem;
-        color: var(--pico-muted-color);
-      }
-      
-      /* Share buttons */
-      .share-container {
-        position: absolute;
-        bottom: 1rem;
-        left: 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        z-index: 10;
-      }
-      
-      .share-btn {
-        padding: 0;
-        border-radius: 50%;
-        border: none;
-        cursor: pointer;
-        font-size: 1.1rem;
-        transition: all 0.3s;
-        backdrop-filter: blur(8px);
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        min-width: 44px;
-        flex-shrink: 0;
-      }
-      
-      .share-btn:hover {
-        transform: translateY(-2px) scale(1.1);
-        background: rgba(255, 255, 255, 0.3);
-      }
-      
-      .share-btn.facebook:hover { background: rgba(24, 119, 242, 0.9); }
-      .share-btn.twitter:hover { background: rgba(29, 161, 242, 0.9); }
-      .share-btn.copy:hover { background: rgba(34, 197, 94, 0.9); }
-      .theme-toggle {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        background: var(--pico-primary);
-        color: white;
-        border: none;
-        padding: 0.75rem;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 1.2rem;
-        transition: all 0.3s;
-        z-index: 1000;
-      }
-      
-      [data-theme="dark"] .theme-toggle {
-        background: #1f2937;
-        color: #60a5fa;
-      }
-      
-      .theme-toggle:hover {
-        background: var(--pico-primary-hover);
-        transform: scale(1.1);
-      }
-      
-      [data-theme="dark"] .theme-toggle:hover {
-        background: #374151;
-        transform: scale(1.1);
-      }
-    </style>
   </head>
   <body>
     <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle between light and dark theme">🌙</button>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle between light and dark theme">
+      🌙
+    </button>
     
     <!-- Hero Section -->
     <section class="hero" role="banner">
-      <img src="/assets/concert-hero.jpg" alt="Concert crowd with stage lights and performers" class="hero-bg">
       <div class="hero-content">
         <h1>🎸 Concerts in Rochester</h1>
         <p>Your source for upcoming live music in Rochester, NY and nearby venues like CMAC & Darien Lake.</p>
@@ -379,208 +329,277 @@
 
     <!-- Main Content -->
     <main class="container">
-      <!-- Filter Buttons -->
-      <div class="filter-container" role="group" aria-label="Filter concerts by venue">
-        <button class="filter-btn active" data-filter="All" aria-pressed="true">All</button>
-        <button class="filter-btn" data-filter="Rochester" aria-pressed="false">Rochester</button>
-        <button class="filter-btn" data-filter="Constellation Brands-Marvin Sands Performing Arts Center: CMAC" aria-pressed="false">CMAC</button>
-        <button class="filter-btn" data-filter="Darien Lake" aria-pressed="false">Darien Lake</button>
-      </div>
+      <section class="events-section">
+        <!-- Filter Buttons -->
+        <div class="filter-container" role="group" aria-label="Filter concerts by venue">
+          <button class="filter-btn active" data-filter="All" aria-pressed="true">All</button>
+          <button class="filter-btn" data-filter="Rochester" aria-pressed="false">Rochester</button>
+          <button class="filter-btn" data-filter="Constellation Brands-Marvin Sands Performing Arts Center: CMAC" aria-pressed="false">CMAC</button>
+          <button class="filter-btn" data-filter="Darien Lake" aria-pressed="false">Darien Lake</button>
+        </div>
 
-      <h2 style="text-align: center; margin-bottom: 2rem;">Upcoming Events</h2>
-      
-      <!-- Loading State -->
-      <div id="loading" class="loading" role="status" aria-live="polite">
-        <p>🎵 Loading concerts...</p>
-      </div>
-      
-      <!-- Events Container -->
-      <div id="events-container" role="region" aria-label="Concert listings" aria-live="polite">
-        <!-- Events will be populated here -->
-      </div>
-      
-      <!-- Back to Top Button -->
-      <button class="back-to-top" id="backToTop" aria-label="Scroll back to top of page">⬆️</button>
+        <h2 class="events-title">Upcoming Events</h2>
+        
+        <!-- Loading State -->
+        <div id="loading" class="loading" role="status" aria-live="polite">
+          <p>🎵 Loading concerts...</p>
+        </div>
+        
+        <!-- Events Container -->
+        <div id="events-container" class="events-grid" role="region" aria-label="Concert listings" aria-live="polite">
+          <!-- Events will be populated here -->
+        </div>
+        
+        <!-- Load More Indicator -->
+        <div id="loadMore" class="load-more" style="display:none;">
+          <p>Scroll down to see more concerts...</p>
+        </div>
+      </section>
     </main>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll back to top of page">⬆️</button>
 
-    <script type="module">
-      let allEvents = [];
-      let filteredEvents = [];
-      let selectedFilter = 'All';
-      let visibleCount = 10;
-      const loadMoreCount = 10;
-      
-      const eventsContainer = document.getElementById('events-container');
-      const loadingEl = document.getElementById('loading');
-      const backToTopBtn = document.getElementById('backToTop');
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      const themeToggle = document.getElementById('themeToggle');
-      const shareFacebook = document.getElementById('shareFacebook');
-      const shareTwitter = document.getElementById('shareTwitter');
-      const copyLink = document.getElementById('copyLink');
-      
-      // Share functionality
-      function initializeSharing() {
-        const url = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent('🎸 Concerts in Rochester NY | Live Music Events & Tickets');
-        const description = encodeURIComponent('Find upcoming concerts and live music events in Rochester NY, CMAC, and Darien Lake');
+    <script>
+      // Performance-optimized JavaScript - Minimal and efficient
+      (function() {
+        'use strict';
         
-        shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-        shareTwitter.href = `https://twitter.com/intent/tweet?url=${url}&text=${title}&hashtags=RochesterConcerts,LiveMusic,CMAC,DarienLake`;
+        // State management
+        let allEvents = [];
+        let filteredEvents = [];
+        let selectedFilter = 'All';
+        let visibleCount = 12; // Increased for better UX
+        const loadMoreCount = 12;
         
-        copyLink.addEventListener('click', async () => {
+        // DOM references - cached for performance
+        const elements = {
+          eventsContainer: document.getElementById('events-container'),
+          loadingEl: document.getElementById('loading'),
+          loadMoreEl: document.getElementById('loadMore'),
+          backToTopBtn: document.getElementById('backToTop'),
+          filterBtns: document.querySelectorAll('.filter-btn'),
+          themeToggle: document.getElementById('themeToggle'),
+          shareFacebook: document.getElementById('shareFacebook'),
+          shareTwitter: document.getElementById('shareTwitter'),
+          copyLink: document.getElementById('copyLink')
+        };
+        
+        // Theme management with system preference detection
+        function initTheme() {
+          const savedTheme = localStorage.getItem('theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+          
+          document.documentElement.setAttribute('data-theme', theme);
+          updateThemeIcon(theme);
+        }
+        
+        function toggleTheme() {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          updateThemeIcon(newTheme);
+        }
+        
+        function updateThemeIcon(theme) {
+          elements.themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+          elements.themeToggle.title = `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`;
+        }
+
+        // Share functionality
+        function initializeSharing() {
+          const url = encodeURIComponent(window.location.href);
+          const title = encodeURIComponent('🎸 Concerts in Rochester NY | Live Music Events & Tickets');
+          
+          elements.shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+          elements.shareTwitter.href = `https://twitter.com/intent/tweet?url=${url}&text=${title}&hashtags=RochesterConcerts,LiveMusic,CMAC,DarienLake`;
+          
+          elements.copyLink.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(window.location.href);
+              elements.copyLink.innerHTML = '✅';
+              elements.copyLink.setAttribute('aria-label', 'Link copied to clipboard');
+              setTimeout(() => {
+                elements.copyLink.innerHTML = '🔗';
+                elements.copyLink.setAttribute('aria-label', 'Copy page link to clipboard');
+              }, 2000);
+            } catch (err) {
+              console.error('Failed to copy link:', err);
+            }
+          });
+        }
+
+        // Optimized fetch with error handling
+        async function fetchEvents() {
           try {
-            await navigator.clipboard.writeText(window.location.href);
-            copyLink.innerHTML = '✅';
-            copyLink.setAttribute('aria-label', 'Link copied to clipboard');
-            setTimeout(() => {
-              copyLink.innerHTML = '🔗';
-              copyLink.setAttribute('aria-label', 'Copy page link to clipboard');
-            }, 2000);
-          } catch (err) {
-            console.error('Failed to copy link:', err);
-          }
-        });
-      }
-      
-      // Theme management
-      function initTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-        
-        document.documentElement.setAttribute('data-theme', theme);
-        updateThemeIcon(theme);
-      }
-      
-      function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateThemeIcon(newTheme);
-      }
-      
-      function updateThemeIcon(theme) {
-        themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-        themeToggle.title = `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`;
-      }
-
-      // Fetch events from API
-      async function fetchEvents() {
-        try {
-          const response = await fetch('http://localhost:4000/events');
-          if (!response.ok) throw new Error('Failed to fetch');
-          
-          allEvents = await response.json();
-          
-          // Sort by date (soonest first)
-          allEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
-          
-          loadingEl.style.display = 'none';
-          filterEvents();
-          renderEvents();
-        } catch (error) {
-          console.error('Error fetching events:', error);
-          loadingEl.innerHTML = '<p>❌ Failed to load concerts. Make sure the API server is running!</p>';
-        }
-      }
-
-      // Filter events based on selected filter
-      function filterEvents() {
-        if (selectedFilter === 'All') {
-          filteredEvents = [...allEvents];
-        } else if (selectedFilter === 'Rochester') {
-          // Rochester = everything that's NOT CMAC and NOT Darien Lake
-          filteredEvents = allEvents.filter(event => 
-            event.venue && 
-            !event.venue.includes('Constellation Brands-Marvin Sands Performing Arts Center: CMAC') &&
-            !event.venue.includes('Darien Lake')
-          );
-        } else {
-          filteredEvents = allEvents.filter(event => 
-            event.venue && event.venue.includes(selectedFilter)
-          );
-        }
-        visibleCount = loadMoreCount; // Reset visible count
-      }
-
-      // Render events to DOM
-      function renderEvents() {
-        const eventsToShow = filteredEvents.slice(0, visibleCount);
-        
-        eventsContainer.innerHTML = eventsToShow.map(event => `
-          <article class="event-card">
-            <h3>${event.name || 'Unknown Event'}</h3>
-            <div class="event-venue">${event.venue || 'Unknown Venue'}</div>
-            <div class="event-date">${event.date ? new Date(event.date).toLocaleString() : 'Date TBA'}</div>
-            <a href="${event.url || '#'}" class="event-link" target="_blank" rel="noopener">View Tickets</a>
-          </article>
-        `).join('');
-
-        // Show load more message if there are more events
-        if (visibleCount < filteredEvents.length) {
-          eventsContainer.innerHTML += `
-            <div style="text-align: center; margin: 2rem 0;">
-              <p>Scroll down to see more concerts...</p>
-            </div>
-          `;
-        }
-      }
-
-      // Update filter button states
-      function updateFilterButtons() {
-        filterBtns.forEach(btn => {
-          const isActive = btn.dataset.filter === selectedFilter;
-          btn.classList.toggle('active', isActive);
-          btn.setAttribute('aria-pressed', isActive.toString());
-        });
-      }
-
-      // Load more events on scroll
-      function handleScroll() {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-          if (visibleCount < filteredEvents.length) {
-            visibleCount += loadMoreCount;
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+            
+            // Use Vercel API route in production, localhost in development
+            const apiUrl = window.location.hostname === 'localhost' 
+              ? 'http://localhost:4000/events'
+              : '/api/events';
+            
+            const response = await fetch(apiUrl, {
+              signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            allEvents = await response.json();
+            
+            // Sort by date (soonest first)
+            allEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            elements.loadingEl.style.display = 'none';
+            filterEvents();
             renderEvents();
+          } catch (error) {
+            console.error('Error fetching events:', error);
+            elements.loadingEl.innerHTML = '<p>❌ Failed to load concerts. Please check your connection and try again.</p>';
+          }
+        }
+
+        // Efficient filtering
+        function filterEvents() {
+          if (selectedFilter === 'All') {
+            filteredEvents = allEvents;
+          } else if (selectedFilter === 'Rochester') {
+            filteredEvents = allEvents.filter(event => 
+              event.venue && 
+              !event.venue.includes('Constellation Brands-Marvin Sands Performing Arts Center: CMAC') &&
+              !event.venue.includes('Darien Lake')
+            );
+          } else {
+            filteredEvents = allEvents.filter(event => 
+              event.venue && event.venue.includes(selectedFilter)
+            );
+          }
+          visibleCount = loadMoreCount; // Reset visible count
+        }
+
+        // Optimized rendering with DocumentFragment
+        function renderEvents() {
+          const eventsToShow = filteredEvents.slice(0, visibleCount);
+          const fragment = document.createDocumentFragment();
+          
+          eventsToShow.forEach(event => {
+            const article = document.createElement('article');
+            article.className = 'event-card';
+            article.innerHTML = `
+              <h3>${escapeHtml(event.name || 'Unknown Event')}</h3>
+              <div class="event-venue">${escapeHtml(event.venue || 'Unknown Venue')}</div>
+              <div class="event-date">${event.date ? new Date(event.date).toLocaleString() : 'Date TBA'}</div>
+              <a href="${escapeHtml(event.url || '#')}" class="event-link" target="_blank" rel="noopener">View Tickets</a>
+            `;
+            fragment.appendChild(article);
+          });
+          
+          elements.eventsContainer.innerHTML = '';
+          elements.eventsContainer.appendChild(fragment);
+          
+          // Show/hide load more indicator
+          if (visibleCount < filteredEvents.length) {
+            elements.loadMoreEl.style.display = 'block';
+          } else {
+            elements.loadMoreEl.style.display = 'none';
           }
         }
         
-        // Show/hide back to top button
-        if (window.scrollY > 400) {
-          backToTopBtn.classList.add('visible');
-        } else {
-          backToTopBtn.classList.remove('visible');
+        // Security: HTML escaping
+        function escapeHtml(text) {
+          const div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
         }
-      }
 
-      // Event listeners
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          selectedFilter = btn.dataset.filter;
-          updateFilterButtons();
-          filterEvents();
-          renderEvents();
-          window.scrollTo({ top: document.querySelector('main').offsetTop, behavior: 'smooth' });
+        // Filter button state management
+        function updateFilterButtons() {
+          elements.filterBtns.forEach(btn => {
+            const isActive = btn.dataset.filter === selectedFilter;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-pressed', isActive.toString());
+          });
+        }
+
+        // Throttled scroll handler for performance
+        let scrollTimeout;
+        function handleScroll() {
+          if (scrollTimeout) return;
           
-          // Remove focus to prevent blue outline
-          btn.blur();
+          scrollTimeout = setTimeout(() => {
+            // Infinite scroll
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+              if (visibleCount < filteredEvents.length) {
+                visibleCount += loadMoreCount;
+                renderEvents();
+              }
+            }
+            
+            // Back to top button
+            const shouldShow = window.scrollY > 400;
+            elements.backToTopBtn.classList.toggle('visible', shouldShow);
+            
+            scrollTimeout = null;
+          }, 100);
+        }
+
+        // Event listeners with performance optimizations
+        elements.filterBtns.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            selectedFilter = btn.dataset.filter;
+            updateFilterButtons();
+            filterEvents();
+            renderEvents();
+            
+            // Smooth scroll to events section
+            const eventsSection = document.querySelector('.events-section');
+            if (eventsSection) {
+              eventsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Remove focus to prevent outline
+            btn.blur();
+          });
         });
-      });
 
-      backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      
-      themeToggle.addEventListener('click', toggleTheme);
+        elements.backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        elements.themeToggle.addEventListener('click', toggleTheme);
 
-      window.addEventListener('scroll', handleScroll);
+        // Passive scroll listener for better performance
+        window.addEventListener('scroll', handleScroll, { passive: true });
 
-      // Initialize
-      initTheme();
-      initializeSharing();
-      fetchEvents();
+        // System theme change detection
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          if (!localStorage.getItem('theme')) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            updateThemeIcon(newTheme);
+          }
+        });
+
+        // Initialize everything
+        initTheme();
+        initializeSharing();
+        fetchEvents();
+        
+        // Performance monitoring (remove in production)
+        if ('performance' in window) {
+          window.addEventListener('load', () => {
+            setTimeout(() => {
+              const perfData = performance.getEntriesByType('navigation')[0];
+              console.log(`Page load time: ${perfData.loadEventEnd - perfData.loadEventStart}ms`);
+            }, 0);
+          });
+        }
+      })();
     </script>
   </body>
 </html>

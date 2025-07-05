@@ -1,6 +1,9 @@
 # 🎸 Rochester Concerts
 
-A modern, fast, and mobile-responsive web app for discovering upcoming concerts and live music events in Rochester, NY and surrounding venues including CMAC and Darien Lake.
+A modern, fast, and mobile-responsive web app for discovering upcoming concerts and live music events in Rochester, NY and surrounding venues including CMAC and Darien Lake. Honestly, just wanted to mess around and make a quick project with express on lightsail then realized I should actually publish this and lightsail is a bit much for something so basic. Shout out ticketmaster for the API! 5k a day tyvm... omw to partner HA!
+
+Testing some SEO with astro as well, may or may not come back to this and add all of upstate NY.
+ANYWAYS....
 
 ![Rochester Concerts](https://img.shields.io/badge/Live%20Music-Rochester%20NY-blue?style=for-the-badge)
 ![Performance](https://img.shields.io/badge/Performance-90%2B-green?style=for-the-badge)
@@ -177,6 +180,6 @@ If you encounter any issues or have questions:
 
 ---
 
-**Made with ❤️ for the Rochester music scene** 🎸
+**Made with ❤️🎸 by Philip**
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/rochester-concerts)
